@@ -95,7 +95,7 @@ class DMSSiteTreeExtension extends DataExtension {
 		$gridField = GridField::create(
 			'Documents',
 			false,
-			$this->owner->Documents()->Sort('DocumentSort'),
+			$this->owner->Master()->Documents()->Sort('DocumentSort'), // Same documents source whatever the language is
 			$gridFieldConfig
 		);
 		$gridField->addExtraClass('documents');
@@ -105,12 +105,12 @@ class DMSSiteTreeExtension extends DataExtension {
 			sprintf(
 				'<a class="ss-ui-button ss-ui-action-constructive cms-panel-link" data-pjax-target="Content" data-icon="add" href="%s">%s</a>',
 				Controller::join_links(singleton('DMSDocumentAddController')->Link(), '?ID=' . $this->owner->ID),
-				"Add Documents"
+				_t('DMSDocument.Add', "Add Documents")
 			)
 		);
 
 		$fields->addFieldsToTab(
-			'Root.Documents (' . $this->owner->Documents()->Count() . ')',
+			'Root.Documents (' . $this->owner->Master()->Documents()->Count() . ')', // Same documents source whatever the language is
 			array(
 				$uploadBtn,
 				$gridField
